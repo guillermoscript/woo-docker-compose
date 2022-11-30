@@ -52,6 +52,19 @@ services:
     volumes:
       - ${WORDPRESS_DATA_DIR:-./wordpress}:/var/www/html
     working_dir: /var/www/html
+    depends_on:
+    - mysql
+    - phpmyadmin
+    - wordpress
+    environment:
+      - WAIT_HOSTS=mysql:3306, wordpress:80
+      - WAIT_HOSTS_TIMEOUT=300
+      - WORDPRESS_DB_NAME=${COMPOSE_PROJECT_NAME:-wordpress}
+      - WORDPRESS_TABLE_PREFIX=${WORDPRESS_TABLE_PREFIX:-wp_}
+      - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST:-mysql}
+      - WORDPRESS_DB_USER=${DATABASE_USER:-root}
+      - WORDPRESS_DB_PASSWORD=${DATABASE_PASSWORD:-test}
+    # restart: always
 
 # Check availability of essential services
   healthcheck:
