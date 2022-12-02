@@ -27,25 +27,32 @@ You can automatically deploy a local docker wordpress site in 5 minutes
 using the following commands:
 
 ``` bash
-# Download a wordpress docker-compose example
-git clone https://github.com/kassambara/wordpress-docker-compose
 cd wordpress-docker-compose
 # Build and start installation
 docker-compose up -d --build
 ```
 
-Visit your site at <http://localhost> and your database via phpMyAdmin
-at <http://localhost:8080>.
+Visit your site at <http://localhost:PORT> and your database via phpMyAdmin
+at <http://localhost:PHPMYADMIN_PORT>.
 
 Default identification for your wordpress website admin:
 
-  - `Username: wordpress` and
-  - `Password: wordpress`
+  - `Username: admin` and
+  - `Password: admin`
 
 Default identification for the phpMyAdmin interface:
 
   - `Username: root` and
   - `Password: password`
+
+In order to install plguins use the wpcli, for example Woocommerce
+
+``` bash
+docker-compose run --rm wpcli plugin install woocommerce --activate
+docker-compose run --rm wpcli plugin install jwt-auth --activate       
+docker-compose run --rm wpcli plugin install jwt-authentication-for-wp-rest-api --activate
+
+```
 
 **Useful set of commands to know**:
 
